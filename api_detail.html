@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>api 文档</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+   <link href="css/api.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+              API 文档
+            </a>
+          </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <h2 id="projectName"></h2>
+          
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        </div>
+      </div>
+    </div>
+    <script src="js/showdown.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/api.js"></script>
+  </body>
+</html>
+<script id="menu" type="text/html">
+  {{each folders as item menuIndex}}
+    <div class="list-group">
+        <a href="#{{item.id}}" class="sidebar-menu list-group-item active" >
+            {{item.name}}<span class="glyphicon glyphicon-menu-down" style="float:right;margin-top: 3px;" aria-hidden="true"></span>
+        </a>
+        {{each item.order as subMenuItem subMenuindex}}
+          <a href="#{{subMenuItem}}" class="sidebar-submenu list-group-item">{{$findResultById subMenuItem requests}}</a>
+        {{/each}}
+   </div>
+ {{/each}}
+ {{each order as item menuIndex}}
+    <div class="list-group">
+          <a href="#{{item}}" class="list-group-item">{{$findResultById item requests}}</a>
+   </div>
+ {{/each}}
+</script>
+<script id="docsSection" type="text/html">
+      {{each requests as request index}}
+          <div id="{{request.id}}" style="width: 100px;height:40px;"></div>
+          <div class="docs-section" >
+            <h2  class="section-header">
+                <div class="method-{{request.method}}">{{request.method}}</div>{{request.name}}
+            </h2>
+            <div class="description">
+                {{$apiFormate request}}
+            </div>
+
+          </div>
+      {{/each}}
+</script>
+
+
